@@ -1,0 +1,5 @@
+src/gmail_automator/__pycache__
+tests/__pycache__
+src/configs.json
+/.pytest_cache
+setups.py
