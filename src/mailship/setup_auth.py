@@ -222,7 +222,7 @@ def main():
         print(f"\033[95mGMAIL_USER_EMAIL: {user_email}\033[0m")
         print(f"\033[95mGMAIL_AUTH_SALT: {str(base64.b64encode(salt).decode())}\033[0m")
         print(f"\033[95mGMAIL_AUTH_REFRESH_TOKEN: {str(encrypt_value(creds.refresh_token, key))}\033[0m")
-        print(f"\033[95mGMAIL_CLIENT_SECRET: {str(creds.expiry.isoformat())}\033[0m")
+        print(f"\033[95mGMAIL_AUTH_TOKEN_EXPIRY: {str(creds.expiry.isoformat())}\033[0m")
 
     except Exception as e:
         print(f"Failed to complete setup: {str(e)}")

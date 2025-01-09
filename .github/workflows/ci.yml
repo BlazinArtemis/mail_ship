@@ -1,0 +1,91 @@
+name: Gmail Automator E2E Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run every 12 hours
+    - cron: "0 */12 * * *"
+
+jobs:
+  e2e_test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setting up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    - name: Installing package list
+      run: apt list --installed    
+
+    - name: Removing previous chrome instances on runner 
+      run: sudo apt purge google-chrome-stable 
+
+    - name: Disable snap auto-refresh
+      run: |
+        sudo systemctl stop snapd.service
+        sudo systemctl mask snapd.service
+ 
+        
+    - name: Install Chromium
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser
+
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          libnss3 \
+          libxss1 \
+          fonts-liberation \
+          libatk1.0-0 \
+          libatk-bridge2.0-0 \
+          libcups2 \
+          libxrandr2 \
+          xdg-utils \
+          wget \
+          libpangocairo-1.0-0 \
+          xvfb
+
+
+    
+       # Need to fetch reqs if needed
+    - name: Installing all necessary packages
+      run: | 
+        pip install chromedriver-autoinstaller selenium pyvirtualdisplay
+        pip install -r requirements.txt
+
+    - name: Install xvfb
+      run: sudo apt-get install xvfb
+
+    - name: Verify Chrome and ChromeDriver Versions
+      run: |
+        google-chrome --version || chromium-browser --version
+        chromedriver --version
+        
+
+    - name: Run main.py
+      env:
+        GMAIL_AUTH_REFRESH_TOKEN: ${{ secrets.GMAIL_AUTH_REFRESH_TOKEN }}
+        GMAIL_AUTH_SALT: ${{ secrets.GMAIL_AUTH_SALT }}
+        GMAIL_AUTH_TOKEN_EXPIRY: ${{ secrets.GMAIL_AUTH_TOKEN_EXPIRY }}
+        GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+        GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+        GMAIL_USER_EMAIL: ${{ secrets.GMAIL_USER_EMAIL }}
+        DISPLAY: ":99"
+      run: python src/main_ci.py
+      
+    - name: Refresh Tokens
+      env:
+        GMAIL_CLIENT_ID: ${{ secrets.GMAIL_CLIENT_ID }}
+        GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
+        GMAIL_AUTH_REFRESH_TOKEN: ${{ secrets.GMAIL_AUTH_REFRESH_TOKEN }}
+        GMAIL_AUTH_SALT: ${{ secrets.GMAIL_AUTH_SALT }}
+      run: python src/mailship/setup_auth.py --refresh-tokens
