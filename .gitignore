@@ -3,3 +3,6 @@ tests/__pycache__
 src/configs.json
 /.pytest_cache
 setups.py
+
+dist/
+build/

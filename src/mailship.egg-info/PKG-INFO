@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: mailship
-Version: 1.0.1
+Version: 1.0.2
 Summary: Mail Ship: A powerful Python library for email automation and testing. It offers Gmail integration, real-time inbox monitoring, content extraction, and seamless Selenium integration. Perfect for developers navigating complex email-based workflows and testing scenarios.
 Home-page: https://github.com/BlazinArtemis/mail_ship/
 Author: Oluwaseyi Ajadi
