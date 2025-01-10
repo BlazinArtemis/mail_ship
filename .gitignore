@@ -1,4 +1,4 @@
-src/gmail_automator/__pycache__
+src/mailship/__pycache__
 tests/__pycache__
 src/configs.json
 /.pytest_cache

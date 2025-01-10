@@ -6,3 +6,4 @@ google-auth
 cryptography
 chromedriver_autoinstaller
 pyvirtualdisplay
+playwright

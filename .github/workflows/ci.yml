@@ -80,7 +80,7 @@ jobs:
         GMAIL_CLIENT_SECRET: ${{ secrets.GMAIL_CLIENT_SECRET }}
         GMAIL_USER_EMAIL: ${{ secrets.GMAIL_USER_EMAIL }}
         DISPLAY: ":99"
-      run: python src/main_ci.py
+      run: python src/main_ci_playwright.py
       
     - name: Refresh Tokens
       env:
