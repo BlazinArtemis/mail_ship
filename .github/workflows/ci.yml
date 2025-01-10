@@ -32,10 +32,10 @@ jobs:
         sudo systemctl mask snapd.service
  
         
-    - name: Install Chromium
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y chromium-browser
+    # - name: Install Chromium
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y chromium-browser
 
 
     - name: Install dependencies
