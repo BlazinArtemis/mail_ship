@@ -32,11 +32,12 @@ jobs:
         sudo systemctl mask snapd.service
  
         
-    # - name: Install Chromium
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install -y chromium-browser
-
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install playwright
+        playwright install-deps
+        playwright install
 
     - name: Install dependencies
       run: |
