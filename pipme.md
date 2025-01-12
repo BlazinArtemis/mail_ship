@@ -24,12 +24,56 @@ Install the library using pip:
 pip install mailship
 ```
 
+## Configuration
+
+Before using MailShip, you need to set up a Google Cloud project and configure OAuth credentials. Follow the steps below:
+
+### Step 1: Create a Google Cloud Project
+
+1. Visit the [Google Cloud Console](https://console.cloud.google.com/).
+2. Click on the project selector at the top and choose "New Project."
+3. Enter a name for your project (e.g., "MailShip") and click "Create."
+4. Select your new project from the project dropdown once it's created.
+
+### Step 2: Enable the Gmail API
+
+1. Go to "APIs & Services" > "Library" in the left sidebar.
+2. Search for "Gmail API" and select it.
+3. Click "Enable" to activate the API for your project.
+
+### Step 3: Configure the OAuth Consent Screen
+
+1. Navigate to "APIs & Services" > "OAuth consent screen."
+2. Select "External" (or "Internal" for Google Workspace accounts).
+3. Fill in the following fields:
+   - **App Name**: MailShip
+   - **User Support Email**: Your email address
+   - **Developer Contact Information**: Your email address
+4. Add these required scopes on the "Scopes" page:
+   - https://www.googleapis.com/auth/gmail.readonly
+   - https://www.googleapis.com/auth/userinfo.email
+5. Save the settings and add your Gmail account under "Test Users."
+
+### Step 4: Create an OAuth 2.0 Client ID
+
+1. Go to "APIs & Services" > "Credentials."
+2. Click "Create Credentials" > "OAuth client ID."
+3. Choose "Desktop app" as the application type.
+4. Name the client (e.g., "MailShip Desktop Client") and click "Create."
+5. Download the `client_secrets.json` file and place it in your project directory.
+
+
 ## Getting Started
 
-After installing the package, you can initialize the setup process:
+After getting your credentials, you can initialize the setup process:
 
-### Step 1: Setup Gmail Authentication
-Run the following command to set up your Gmail API credentials:
+Run one of the following commands to set up your Gmail API credentials:
+
+### Option 1: Setup Gmail Authentication
+
+Run the following command to set up your Gmail API credentials without automatic token refreshing setup. 
+
+Note: TOkens would expire if app is not used for long periods of time
 
 ```bash
 mail-ship-setup
@@ -37,12 +81,15 @@ mail-ship-setup
 
 This will guide you through the setup process, including storing credentials and setting environment variables.
 
-### Step 2: Set Up Automatic Token Refreshing
+### Option 2: Set Up Automatic Token Refreshing (Linux)
 
 - To set up a **cron job** (Linux/macOS) for automatic token refreshing, run:
   ```bash
   mail-ship-setup --setup-cron
   ```
+
+### Option 3: Set Up Automatic Token Refreshing (Windows)
+ 
 - To set up a **scheduled task** (Windows), run:
   ```bash
   mail-ship-setup --setup-task

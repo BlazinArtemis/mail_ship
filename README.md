@@ -56,27 +56,37 @@ Before using MailShip, you need to set up a Google Cloud project and configure O
 
 ### Step 5: Run the Setup Script
 
-Run the setup script to configure MailShip:
+Run one of the following setup script to configure MailShip:
 
-1. **Initial Setup**:
+### Option 1: Setup Gmail Authentication
+
+Run the following command to set up your Gmail API credentials without automatic token refreshing setup. 
+
    ```bash
    python setup_auth.py
    ```
-   - This will guide you through authentication and save credentials.
+This will guide you through authentication and save credentials.
 
-2. **Refresh Tokens Only**:
+ **Note: Refresh Tokens Only**:
    ```bash
    python setup_auth.py --refresh-tokens
    ```
    - Use this command to refresh tokens manually.
 
-3. **Set Up Automatic Token Refresh**:
+### Option 2: Set Up Automatic Token Refreshing (Linux)
+
+- To set up a **cron job** (Linux/macOS) for automatic token refreshing, run:
+
    - **Linux/macOS (Cron Job)**:
      ```bash
      python setup_auth.py --setup-cron
      ```
      - Creates a cron job to refresh tokens hourly.
    
+### Option 3: Set Up Automatic Token Refreshing (Windows)
+
+- To set up a **scheduled task** (Windows), run:
+
    - **Windows (Task Scheduler)**:
      ```bash
      python setup_auth.py --setup-task

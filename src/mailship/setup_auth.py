@@ -255,6 +255,7 @@ if __name__ == "__main__":
         main()
         setup_cron_job()
     elif args.setup_task:
+        main()
         setup_windows_task()
     elif args.refresh_tokens:
         client_id = os.environ.get("GMAIL_CLIENT_ID")
